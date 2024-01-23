@@ -214,10 +214,6 @@ impl Pool for OsmosisPool {
         let pool_assets =
             PoolmanagerQuerier::new(&deps.querier).total_pool_liquidity(self.pool_id)?;
 
-        deps.api.debug(&format!("pool_id: {:?}", self.pool_id));
-        deps.api
-            .debug(&format!("pool_assets: {:?}", pool_assets.clone()));
-
         let asset_list: AssetList = pool_assets
             .liquidity
             .into_iter()
@@ -229,8 +225,6 @@ impl Pool for OsmosisPool {
             })
             .collect::<StdResult<Vec<Asset>>>()?
             .into();
-
-        deps.api.debug(&format!("asset_list: {:?}", asset_list));
 
         Ok(asset_list)
     }
